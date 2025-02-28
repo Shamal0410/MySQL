@@ -15,8 +15,7 @@ location varchar(100),
 rating float check (rating >=0 AND rating <=5),
 cuisine varchar(50),
 contact varchar(15));
- 
- Drop table Restaurants;
+
  
 Create table Menu_Items (
 item_id int primary key Auto_increment,
@@ -26,7 +25,6 @@ price decimal(8,2) not null,
 desciption text,
 foreign key(restaurant_id) references Restaurants(restaurant_id) on delete cascade);
 
-drop table Menu_Items;
 
 Create table Orders (
 order_id int primary key Auto_increment,
@@ -45,8 +43,6 @@ quantity int default 1,
 price decimal(8,2));
 foreign key(order_id) references Orders(order_id) on delete cascade,
 foreign key(item_id) references Menu_Items(item_id) on delete cascade);
-
-Drop table Order_Items;
 
 Create table Reviews (
 review_id int primary key Auto_increment,
