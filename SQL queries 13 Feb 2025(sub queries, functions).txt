@@ -1,0 +1,750 @@
+CREATE DATABASE uss1030;
+
+USE uss1030;
+
+CREATE TABLE student(
+    -> roll int,
+    -> name varchar(20),
+    -> marks int,
+    -> birthdate date);
+Query OK, 0 rows affected (0.20 sec)
+
+INSERT INTO tablename VALUES(value1,value2,value3,.....);
+INSERT INTO tablename(col1,col2,col3) VALUES(val1,val2,val3);
+
+
+
+ CREATE TABLE employee(empid int primary key,
+    empname varchar(30),
+    city varchar(20) default 'Pune');
+
+
+ALTER TABLE
+
+1. Add a new Column
+
+syntax : ALTER TABLE tablename ADD (columnname datatype);
+ALTER TABLE student2 ADD(address varchar(30));
+ALTER TABLE student2 ADD COLUMN(mobile varchar(10));
+
+2. Delete any column
+ALTER TABLE tablename DROP COLUMN colname;
+ALTER TABLE student2 DROP COLUMN address;
+
+3. Rename the column
+ALTER TABLE tablename RENAME COLUMN oldcolname to newcolname;
+ALTER TABLE student2 RENAME COLUMN mobile to phone;
+
+4. Change the data type
+  ALTER TABLE tablename MODIFY COLUMN colname newdatatype;
+ ALTER TABLE student2 MODIFY COLUMN phone varchar(14);
+
+5. DROP existing primary key
+ALTER TABLE tablename DROP PRIMARY KEY;
+ALTER TABLE student2 DROP PRIMARY KEY;
+
+
+6. ADD PRIMARY KEY
+ALTER TABLE tablename ADD PRIMARY KEY(colname);
+ALTER TABLE student2 ADD PRIMARY KEY(roll);
+
+
+FOREIGN KEY CONSTRAINT
+
+CREATE TABLE category (categoryid int PRIMARY KEY, categoryname varchar(20));
+
+
+CREATE TABLE tablename(col1 type1, col2 type2,
+FOREIGN KEY(foreignkeycolname) 
+REFERENCES anothertablename(primarykeycolumnnameofanothertable));
+
+CREATE TABLE product(prodid int PRIMARY KEY, productname varchar(20), categoryid int, FOREIGN KEY(categoryid) REFERENCES category(categoryid));
+
+
+SELECT * FROM tablename;    -> all records and all columns from table
+
+mysql> SELECT * FROM emp;
++-------+--------+-----------+------+------------+------+------+--------+
+| empno | ename  | job       | mgr  | hiredate   | sal  | comm | deptno |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-01-05 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-09-06 | 2450 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987-07-13 | 3000 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-08-09 | 1500 |    0 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987-07-13 | 1100 | NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-03-12 | 3000 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-----------+------+------------+------+------+--------+
+14 rows in set (0.03 sec)
+
+
+SELECT col1, col2, col3 FROM tablename;    -> all records but only col1,col2,col3 
+
+mysql> SELECT empno,ename, job FROM emp;
++-------+--------+-----------+
+| empno | ename  | job       |
++-------+--------+-----------+
+|  7369 | SMITH  | CLERK     |
+|  7499 | ALLEN  | SALESMAN  |
+|  7521 | WARD   | SALESMAN  |
+|  7566 | JONES  | MANAGER   |
+|  7654 | MARTIN | SALESMAN  |
+|  7698 | BLAKE  | MANAGER   |
+|  7782 | CLARK  | MANAGER   |
+|  7788 | SCOTT  | ANALYST   |
+|  7839 | KING   | PRESIDENT |
+|  7844 | TURNER | SALESMAN  |
+|  7876 | ADAMS  | CLERK     |
+|  7900 | JAMES  | CLERK     |
+|  7902 | FORD   | ANALYST   |
+|  7934 | MILLER | CLERK     |
++-------+--------+-----------+
+14 rows in set (0.00 sec)
+
+
+mysql> SELECT empno as 'EMPLOYEE ID',ename, job FROM emp;
++-------------+--------+-----------+
+| EMPLOYEE ID | ename  | job       |
++-------------+--------+-----------+
+|        7369 | SMITH  | CLERK     |
+|        7499 | ALLEN  | SALESMAN  |
+|        7521 | WARD   | SALESMAN  |
+|        7566 | JONES  | MANAGER   |
+|        7654 | MARTIN | SALESMAN  |
+|        7698 | BLAKE  | MANAGER   |
+|        7782 | CLARK  | MANAGER   |
+|        7788 | SCOTT  | ANALYST   |
+|        7839 | KING   | PRESIDENT |
+|        7844 | TURNER | SALESMAN  |
+|        7876 | ADAMS  | CLERK     |
+|        7900 | JAMES  | CLERK     |
+|        7902 | FORD   | ANALYST   |
+|        7934 | MILLER | CLERK     |
++-------------+--------+-----------+
+14 rows in set (0.00 sec)
+
+
+SQL CLAUSES
+1. WHERE
+2. IN 
+3. AS
+4. LIKE     wildcard characters    _   %       _ 1 single character                 % any number of characters
+5. ORDER BY colname desc
+6. GROUP BY  -> aggregate functions-> count, max, min, sum, avg
+
+
+INNER JOIN
+
+SELECT tablename.colname, tablename.colname 
+FROM firsttablename 
+INNER JOIN secondtablename 
+ON commonfieldfromfirsttable=commonfieldfromsecondtable;
+
+e.g.
+
+SELECT e.ename, e.sal, d.deptno, d.dname 
+FROM emp e 
+INNER JOIN dept d 
+ON e.deptno=d.deptno;
+
+
+table student
+roll  name
+
+table exam
+roll python sql 
+
+SELECT s.roll, s.name , e.python , e.sql 
+FROM student s, exam e
+WHERE s.roll = e.roll;
+
+SELECT s.roll, s.name, e.python, e.sql
+FROM student s 
+INNER JOIN exam e
+ON s.roll = e.roll ;
+
+
+table student
+roll  name
+1      Megha
+2      Meena
+3      Uma
+4      Yash
+5      Isha
+
+table exam
+roll   mark
+1       84
+2       77
+5       82
+
+
+mysql> select * from emp;
++-------+--------+-----------+------+------------+------+------+--------+
+| empno | ename  | job       | mgr  | hiredate   | sal  | comm | deptno |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-01-05 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-09-06 | 2450 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987-07-13 | 3000 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-08-09 | 1500 |    0 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987-07-13 | 1100 | NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-03-12 | 3000 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-----------+------+------------+------+------+--------+
+14 rows in set (0.04 sec)
+
+mysql> SELECT max(sal) FROM emp;
++----------+
+| max(sal) |
++----------+
+|     5000 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM emp WHERE sal=5000;
++-------+-------+-----------+------+------------+------+------+--------+
+| empno | ename | job       | mgr  | hiredate   | sal  | comm | deptno |
++-------+-------+-----------+------+------------+------+------+--------+
+|  7839 | KING  | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
++-------+-------+-----------+------+------------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM emp WHERE sal = ( SELECT max(sal) FROM emp);
++-------+-------+-----------+------+------------+------+------+--------+
+| empno | ename | job       | mgr  | hiredate   | sal  | comm | deptno |
++-------+-------+-----------+------+------------+------+------+--------+
+|  7839 | KING  | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
++-------+-------+-----------+------+------------+------+------+--------+
+1 row in set (0.01 sec)
+
+mysql> SELECT * FROM emp;
++-------+--------+-----------+------+------------+------+------+--------+
+| empno | ename  | job       | mgr  | hiredate   | sal  | comm | deptno |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-01-05 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-09-06 | 2450 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987-07-13 | 3000 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-08-09 | 1500 |    0 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987-07-13 | 1100 | NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-03-12 | 3000 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-----------+------+------------+------+------+--------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT ename FROM emp;
++--------+
+| ename  |
++--------+
+| SMITH  |
+| ALLEN  |
+| WARD   |
+| JONES  |
+| MARTIN |
+| BLAKE  |
+| CLARK  |
+| SCOTT  |
+| KING   |
+| TURNER |
+| ADAMS  |
+| JAMES  |
+| FORD   |
+| MILLER |
++--------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT e.ename FROM emp e;
++--------+
+| ename  |
++--------+
+| SMITH  |
+| ALLEN  |
+| WARD   |
+| JONES  |
+| MARTIN |
+| BLAKE  |
+| CLARK  |
+| SCOTT  |
+| KING   |
+| TURNER |
+| ADAMS  |
+| JAMES  |
+| FORD   |
+| MILLER |
++--------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT count(*) FROM emp GROUP BY deptno;
++----------+
+| count(*) |
++----------+
+|        3 |
+|        5 |
+|        6 |
++----------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT count(*),deptno FROM emp GROUP BY deptno;
++----------+--------+
+| count(*) | deptno |
++----------+--------+
+|        3 |     10 |
+|        5 |     20 |
+|        6 |     30 |
++----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT max(SELECT count(*) FROM emp GROUP BY deptno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT count(*) FROM emp GROUP BY deptno)' at line 1
+mysql> SELECT max(SELECT count(*) FROM emp GROUP BY deptno) FROM emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT count(*) FROM emp GROUP BY deptno) FROM emp' at line 1
+mysql> SELECT count(*) FROM emp GROUP BY deptno;
++----------+
+| count(*) |
++----------+
+|        3 |
+|        5 |
+|        6 |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM emp;
++-------+--------+-----------+------+------------+------+------+--------+
+| empno | ename  | job       | mgr  | hiredate   | sal  | comm | deptno |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-01-05 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-09-06 | 2450 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987-07-13 | 3000 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-08-09 | 1500 |    0 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987-07-13 | 1100 | NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-03-12 | 3000 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-----------+------+------------+------+------+--------+
+14 rows in set (0.00 sec)
+
+mysql> -- show details of employee who works in the same dept as ADAMS works--
+mysql> SELECT deptno from emp WHERE ename='ADAMS';
++--------+
+| deptno |
++--------+
+|     20 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM emp WHERE deptno = (SELECT deptno from emp WHERE ename='ADAMS'
+);
++-------+-------+---------+------+------------+------+------+--------+
+| empno | ename | job     | mgr  | hiredate   | sal  | comm | deptno |
++-------+-------+---------+------+------------+------+------+--------+
+|  7369 | SMITH | CLERK   | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7788 | SCOTT | ANALYST | 7566 | 1987-07-13 | 3000 | NULL |     20 |
+|  7876 | ADAMS | CLERK   | 7788 | 1987-07-13 | 1100 | NULL |     20 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-03-12 | 3000 | NULL |     20 |
++-------+-------+---------+------+------------+------+------+--------+
+5 rows in set (0.01 sec)
+       SELECT * FROM emp;
++-------+--------+-----------+------+------------+------+------+--------+
+| empno | ename  | job       | mgr  | hiredate   | sal  | comm | deptno |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-01-05 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-09-06 | 2450 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987-07-13 | 3000 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-08-09 | 1500 |    0 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987-07-13 | 1100 | NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-03-12 | 3000 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-----------+------+------------+------+------+--------+
+14 rows in set (0.00 sec)
+
+mysql> -- show all employees details having salary more than salary of FORD--
+mysql> SELECT sal FROM emp WHERE ename='FORD';
++------+
+| sal  |
++------+
+| 3000 |
++------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM emp WHERE sal>= (SELECT sal FROM emp WHERE ename='FORD');
++-------+-------+-----------+------+------------+------+------+--------+
+| empno | ename | job       | mgr  | hiredate   | sal  | comm | deptno |
++-------+-------+-----------+------+------------+------+------+--------+
+|  7788 | SCOTT | ANALYST   | 7566 | 1987-07-13 | 3000 | NULL |     20 |
+|  7839 | KING  | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7902 | FORD  | ANALYST   | 7566 | 1981-03-12 | 3000 | NULL |     20 |
++-------+-------+-----------+------+------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM emp;
++-------+--------+-----------+------+------------+------+------+--------+
+| empno | ename  | job       | mgr  | hiredate   | sal  | comm | deptno |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-01-05 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-09-06 | 2450 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987-07-13 | 3000 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-08-09 | 1500 |    0 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987-07-13 | 1100 | NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-03-12 | 3000 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-----------+------+------------+------+------+--------+
+14 rows in set (0.00 sec)
+
+mysql> -- show all employees having sal < average sal of that department --
+mysql> -- show all employees having sal < average sal
+mysql> SELECT avg(sal) FROM emp;
++-----------+
+| avg(sal)  |
++-----------+
+| 2073.2143 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM emp WHERE sal< (SELECT avg(sal) FROM emp);
++-------+--------+----------+------+------------+------+------+--------+
+| empno | ename  | job      | mgr  | hiredate   | sal  | comm | deptno |
++-------+--------+----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK    | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-08-09 | 1500 |    0 |     30 |
+|  7876 | ADAMS  | CLERK    | 7788 | 1987-07-13 | 1100 | NULL |     20 |
+|  7900 | JAMES  | CLERK    | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7934 | MILLER | CLERK    | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+----------+------+------------+------+------+--------+
+8 rows in set (0.00 sec)
+
+mysql> -- show all employees details who works in SMITH or WARD 's department--
+mysql> SELECT deptno FROM emp WHERE ename='SMITH' or ename='WARD';
++--------+
+| deptno |
++--------+
+|     20 |
+|     30 |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM emp WHERE deptno IN (SELECT deptno FROM emp WHERE ename='SMITH' or ename='WARD');
++-------+--------+----------+------+------------+------+------+--------+
+| empno | ename  | job      | mgr  | hiredate   | sal  | comm | deptno |
++-------+--------+----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK    | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7566 | JONES  | MANAGER  | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7788 | SCOTT  | ANALYST  | 7566 | 1987-07-13 | 3000 | NULL |     20 |
+|  7876 | ADAMS  | CLERK    | 7788 | 1987-07-13 | 1100 | NULL |     20 |
+|  7902 | FORD   | ANALYST  | 7566 | 1981-03-12 | 3000 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER  | 7839 | 1981-01-05 | 2850 | NULL |     30 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-08-09 | 1500 |    0 |     30 |
+|  7900 | JAMES  | CLERK    | 7698 | 1981-12-03 |  950 | NULL |     30 |
++-------+--------+----------+------+------------+------+------+--------+
+11 rows in set (0.02 sec)
+
+mysql> SELECT * FROM emp;
++-------+--------+-----------+------+------------+------+------+--------+
+| empno | ename  | job       | mgr  | hiredate   | sal  | comm | deptno |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-01-05 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-09-06 | 2450 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987-07-13 | 3000 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-08-09 | 1500 |    0 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987-07-13 | 1100 | NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-03-12 | 3000 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-----------+------+------------+------+------+--------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT min(sal) FROM emp GROUP BY deptno;
++----------+
+| min(sal) |
++----------+
+|     1300 |
+|      800 |
+|      950 |
++----------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT min(sal),deptno FROM emp GROUP BY deptno;
++----------+--------+
+| min(sal) | deptno |
++----------+--------+
+|     1300 |     10 |
+|      800 |     20 |
+|      950 |     30 |
++----------+--------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT * FROM emp WHERE sal IN(SELECT min(sal),deptno FROM emp GROUP BY deptno);
+ERROR 1241 (21000): Operand should contain 1 column(s)
+mysql> SELECT ename FROM emp WHERE sal IN(SELECT min(sal),deptno FROM emp GROUP BY deptno);
+ERROR 1241 (21000): Operand should contain 1 column(s)
+mysql> SELECT * FROM emp WHERE sal IN(SELECT min(sal) FROM emp GROUP BY deptno);
++-------+--------+-------+------+------------+------+------+--------+
+| empno | ename  | job   | mgr  | hiredate   | sal  | comm | deptno |
++-------+--------+-------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7900 | JAMES  | CLERK | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7934 | MILLER | CLERK | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-------+------+------------+------+------+--------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT LEFT(ename,3) FROM emp;
++---------------+
+| LEFT(ename,3) |
++---------------+
+| SMI           |
+| ALL           |
+| WAR           |
+| JON           |
+| MAR           |
+| BLA           |
+| CLA           |
+| SCO           |
+| KIN           |
+| TUR           |
+| ADA           |
+| JAM           |
+| FOR           |
+| MIL           |
++---------------+
+14 rows in set (0.01 sec)
+
+mysql> SELECT hiredate FROM emp;
++------------+
+| hiredate   |
++------------+
+| 1980-12-17 |
+| 1981-02-20 |
+| 1981-02-22 |
+| 1981-04-02 |
+| 1981-09-28 |
+| 1981-01-05 |
+| 1981-09-06 |
+| 1987-07-13 |
+| 1981-11-17 |
+| 1981-08-09 |
+| 1987-07-13 |
+| 1981-12-03 |
+| 1981-03-12 |
+| 1982-01-23 |
++------------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT year(hiredate) FROM emp;
++----------------+
+| year(hiredate) |
++----------------+
+|           1980 |
+|           1981 |
+|           1981 |
+|           1981 |
+|           1981 |
+|           1981 |
+|           1981 |
+|           1987 |
+|           1981 |
+|           1981 |
+|           1987 |
+|           1981 |
+|           1981 |
+|           1982 |
++----------------+
+14 rows in set (0.01 sec)
+
+mysql>
+mysql> SELECT year(hiredate),month(hiredate) FROM emp;
++----------------+-----------------+
+| year(hiredate) | month(hiredate) |
++----------------+-----------------+
+|           1980 |              12 |
+|           1981 |               2 |
+|           1981 |               2 |
+|           1981 |               4 |
+|           1981 |               9 |
+|           1981 |               1 |
+|           1981 |               9 |
+|           1987 |               7 |
+|           1981 |              11 |
+|           1981 |               8 |
+|           1987 |               7 |
+|           1981 |              12 |
+|           1981 |               3 |
+|           1982 |               1 |
++----------------+-----------------+
+14 rows in set (0.01 sec)
+
+mysql> SELECT * FROM emp WHERE year(hiredate)=1981 and month(hiredate)=2;
++-------+-------+----------+------+------------+------+------+--------+
+| empno | ename | job      | mgr  | hiredate   | sal  | comm | deptno |
++-------+-------+----------+------+------------+------+------+--------+
+|  7499 | ALLEN | SALESMAN | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD  | SALESMAN | 7698 | 1981-02-22 | 1250 |  500 |     30 |
++-------+-------+----------+------+------------+------+------+--------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT concat(ename,job) FROM emp;
++-------------------+
+| concat(ename,job) |
++-------------------+
+| SMITHCLERK        |
+| ALLENSALESMAN     |
+| WARDSALESMAN      |
+| JONESMANAGER      |
+| MARTINSALESMAN    |
+| BLAKEMANAGER      |
+| CLARKMANAGER      |
+| SCOTTANALYST      |
+| KINGPRESIDENT     |
+| TURNERSALESMAN    |
+| ADAMSCLERK        |
+| JAMESCLERK        |
+| FORDANALYST       |
+| MILLERCLERK       |
++-------------------+
+14 rows in set (0.01 sec)
+
+mysql> SELECT concat(ename,'  ',job) FROM emp;
++------------------------+
+| concat(ename,'  ',job) |
++------------------------+
+| SMITH  CLERK           |
+| ALLEN  SALESMAN        |
+| WARD  SALESMAN         |
+| JONES  MANAGER         |
+| MARTIN  SALESMAN       |
+| BLAKE  MANAGER         |
+| CLARK  MANAGER         |
+| SCOTT  ANALYST         |
+| KING  PRESIDENT        |
+| TURNER  SALESMAN       |
+| ADAMS  CLERK           |
+| JAMES  CLERK           |
+| FORD  ANALYST          |
+| MILLER  CLERK          |
++------------------------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT concat(ename,'->',job) FROM emp;
++------------------------+
+| concat(ename,'->',job) |
++------------------------+
+| SMITH->CLERK           |
+| ALLEN->SALESMAN        |
+| WARD->SALESMAN         |
+| JONES->MANAGER         |
+| MARTIN->SALESMAN       |
+| BLAKE->MANAGER         |
+| CLARK->MANAGER         |
+| SCOTT->ANALYST         |
+| KING->PRESIDENT        |
+| TURNER->SALESMAN       |
+| ADAMS->CLERK           |
+| JAMES->CLERK           |
+| FORD->ANALYST          |
+| MILLER->CLERK          |
++------------------------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT bin(65);
++---------+
+| bin(65) |
++---------+
+| 1000001 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> SELECT len(ename) FROM emp;
+ERROR 1305 (42000): FUNCTION test.len does not exist
+mysql> SELECT length(ename) FROM emp;
++---------------+
+| length(ename) |
++---------------+
+|             5 |
+|             5 |
+|             4 |
+|             5 |
+|             6 |
+|             5 |
+|             5 |
+|             5 |
+|             4 |
+|             6 |
+|             5 |
+|             5 |
+|             4 |
+|             6 |
++---------------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT length(ename),ename FROM emp;
++---------------+--------+
+| length(ename) | ename  |
++---------------+--------+
+|             5 | SMITH  |
+|             5 | ALLEN  |
+|             4 | WARD   |
+|             5 | JONES  |
+|             6 | MARTIN |
+|             5 | BLAKE  |
+|             5 | CLARK  |
+|             5 | SCOTT  |
+|             4 | KING   |
+|             6 | TURNER |
+|             5 | ADAMS  |
+|             5 | JAMES  |
+|             4 | FORD   |
+|             6 | MILLER |
++---------------+--------+
+14 rows in set (0.00 sec)
+
