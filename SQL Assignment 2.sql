@@ -9,7 +9,6 @@ salary int(15),
 joining_date datetime,
 department varchar(25));
  
- Drop table Worker;
  
 Insert into Worker (worker_id,first_name,last_name,salary,joining_date,department) values
 (001,'Monika','Arora',100000,'14-02-20 09.00.00','HR'),
